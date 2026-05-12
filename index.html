@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>·</title>
+    <meta name="description" content="A world of images begins from a single red dot.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23c43b3b'/></svg>">
+</head>
+<body>
+
+    <!-- PHASE 1: The Dot -->
+    <div id="intro" class="intro">
+        <div id="theDot" class="the-dot" role="button" tabindex="0" aria-label="Enter">
+            <span class="dot-core"></span>
+            <!-- Satellite Ink Drops -->
+            <div class="sat-orbit orbit-1"><div class="dot-satellite"></div></div>
+            <div class="sat-orbit orbit-2"><div class="dot-satellite"></div></div>
+            <div class="sat-orbit orbit-3"><div class="dot-satellite"></div></div>
+        </div>
+        <span class="intro-whisper">click</span>
+    </div>
+
+    <!-- PHASE 2: The World -->
+    <div id="world" class="world">
+
+        <!-- Navigation - Born from the dot -->
+        <nav id="nav" class="nav">
+            <div class="nav-dot-anchor" id="navDot"></div>
+            <div class="nav-categories" id="navCategories">
+                <button class="nav-cat active" data-category="all">all</button>
+                <button class="nav-cat" data-category="black mood">black mood</button>
+                <button class="nav-cat" data-category="bloom">bloom</button>
+                <button class="nav-cat" data-category="snap">snap</button>
+                <button class="nav-cat" data-category="영물">영물</button>
+                <button class="nav-cat" data-category="Polaroids">polaroids</button>
+                <button class="nav-cat" data-category="Narcissism">narcissism</button>
+                <button class="nav-cat" data-category="추의 미학">추의 미학</button>
+            </div>
+            <button class="nav-index-btn" id="indexToggle">index</button>
+        </nav>
+
+        <!-- Index Mode: Contact Sheet -->
+        <div id="indexOverlay" class="index-overlay">
+            <div class="index-grid" id="indexGrid"></div>
+        </div>
+
+        <!-- Gallery: One image at a time -->
+        <div id="gallery" class="gallery">
+            <div class="gallery-image-container" id="galleryContainer">
+                <img id="imageA" class="gallery-image layer-a" src="" alt="">
+                <img id="imageB" class="gallery-image layer-b" src="" alt="">
+            </div>
+            <div class="gallery-counter" id="galleryCounter">
+                <span id="counterCurrent">01</span>
+                <span class="counter-divider"></span>
+                <span id="counterTotal">00</span>
+            </div>
+        </div>
+
+        <!-- Glitch Category Text -->
+        <div id="categoryGlitchText" class="category-glitch-text"></div>
+
+        <!-- Telemetry UI -->
+        <div id="telemetry" class="telemetry">
+            <span id="teleX">X:0000</span> <span id="teleY">Y:0000</span>
+        </div>
+
+        <!-- Color Palette UI -->
+        <div id="colorPalette" class="color-palette">
+            <div class="color-chip" id="chip1"></div>
+            <div class="color-chip" id="chip2"></div>
+            <div class="color-chip" id="chip3"></div>
+        </div>
+
+        <!-- Contact Overlay -->
+        <div id="contactOverlay" class="contact-overlay">
+            <div class="contact-content">
+                <h3>JEON EUN SEO</h3>
+                <p>분위기를 담는 사람</p>
+                <div class="contact-links">
+                    <a href="mailto:haaruu_123@naver.com" class="contact-link">haaruu_123@naver.com</a>
+                    <a href="https://www.instagram.com/haaaaaaaaaaaaaaaaaaaaaaaaaaaru/" target="_blank" class="contact-link">@haaaaaaaaaaaaaaaaaaaaaaaaaaaru</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer whisper -->
+        <div class="world-footer">
+            <span class="footer-mark">JEON EUNSEO</span>
+        </div>
+    </div>
+
+    <!-- Custom cursor -->
+    <div id="cursor" class="custom-cursor"></div>
+    <div id="cursorTrail" class="cursor-trail"></div>
+
+    <!-- Film grain overlay -->
+    <div class="grain"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
