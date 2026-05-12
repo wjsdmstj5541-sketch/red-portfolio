@@ -728,12 +728,23 @@ body {
 }
 
 .color-chip {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+    width: 14px;
+    height: 14px;
     background: var(--white-ghost);
-    box-shadow: 0 0 5px rgba(255,255,255,0.1);
-    transition: background 1.2s ease, transform 0.3s ease;
+    box-shadow: inset -1px -1px 3px rgba(0,0,0,0.2), 0 0 6px rgba(255,255,255,0.1);
+    transition: background 1.5s var(--ease-organic), transform 0.4s ease;
+    animation: liquidDrop 4s infinite alternate ease-in-out;
+}
+
+#chip1 { animation-delay: 0s; animation-duration: 4.5s; }
+#chip2 { animation-delay: -1.2s; animation-duration: 5.2s; }
+#chip3 { animation-delay: -2.4s; animation-duration: 4.8s; }
+
+@keyframes liquidDrop {
+    0%   { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(0deg) scale(1); }
+    33%  { border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; transform: rotate(15deg) scale(1.1); }
+    66%  { border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%; transform: rotate(-10deg) scale(0.95); }
+    100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(0deg) scale(1); }
 }
 
 /* --- World Footer --- */
