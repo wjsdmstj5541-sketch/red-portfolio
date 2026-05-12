@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (direction < 0) { currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length; showImage(currentIndex, -1); }
         };
 
-        img.src = currentImages[index].src;
+        img.src = encodeURI(currentImages[index].src.normalize('NFD'));
     }
 
     function nextImage() {
@@ -633,7 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeIndex();
                     isTransitioning = false;
                 };
-                preImg.src = currentImages[i].src;
+                preImg.src = encodeURI(currentImages[i].src.normalize('NFD'));
             });
 
             indexGrid.appendChild(thumb);
