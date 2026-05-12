@@ -90,8 +90,8 @@ body {
 .custom-cursor.hovering {
     width: 48px;
     height: 48px;
-    background: rgba(232, 228, 224, 0.15);
-    border: 1px solid var(--white-dim);
+    background: transparent;
+    border: 1.5px solid var(--white);
 }
 
 .cursor-trail {
