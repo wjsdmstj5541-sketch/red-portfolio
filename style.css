@@ -280,7 +280,39 @@ body {
     pointer-events: all;
 }
 
-/* --- Navigation --- */
+.fading-out {
+    opacity: 0 !important;
+    filter: blur(10px) !important;
+}
+
+/* --- Loading Indicator --- */
+.loading-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--white-dim);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+    mix-blend-mode: difference;
+    transition: opacity 0.3s ease;
+}
+
+.loading-text.visible {
+    opacity: 1;
+    animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+    0% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+/* --- Navigation UI --- */
 .nav {
     position: fixed;
     top: 0;

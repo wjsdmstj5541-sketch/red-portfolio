@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const indexToggle = document.getElementById('indexToggle');
     const contactOverlay = document.getElementById('contactOverlay');
     const categoryGlitchText = document.getElementById('categoryGlitchText');
+    const loadingText = document.getElementById('loadingText');
     const teleX = document.getElementById('teleX');
     const teleY = document.getElementById('teleY');
     const chips = [
@@ -437,9 +438,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function showImage(index, direction = 0) {
         if (isTransitioning || currentImages.length === 0) return;
         isTransitioning = true;
+        
+        loadingText.classList.add('visible');
 
         const img = new Image();
         img.onload = () => {
+            loadingText.classList.remove('visible');
             extractAndSetColors(img);
             // Prepare the back layer with new image
             layerBack.src = img.src;
@@ -469,6 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         img.onerror = () => {
+            loadingText.classList.remove('visible');
             isTransitioning = false;
             if (direction > 0) { currentIndex = (currentIndex + 1) % currentImages.length; showImage(currentIndex, 1); }
             else if (direction < 0) { currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length; showImage(currentIndex, -1); }
