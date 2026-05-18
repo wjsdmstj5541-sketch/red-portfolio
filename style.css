@@ -71,9 +71,9 @@ body {
     mix-blend-mode: difference;
     transition: width 0.4s var(--ease-organic),
                 height 0.4s var(--ease-organic),
-                opacity 0.3s ease;
-    transform: translate(-50%, -50%);
-    opacity: 0;
+                background-color 0.3s ease;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform, width, height;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,10 +81,6 @@ body {
     font-size: 13px;
     font-weight: 500;
     color: var(--black);
-}
-
-.custom-cursor.visible {
-    opacity: 1;
 }
 
 .custom-cursor.hovering {
@@ -103,13 +99,9 @@ body {
     pointer-events: none;
     z-index: 9998;
     mix-blend-mode: difference;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.5s ease;
-}
-
-.cursor-trail.visible {
-    opacity: 0.3;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform;
+    opacity: 0.5;
 }
 
 /* --- PHASE 1: INTRO (The Dot) --- */
