@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         loadingText.classList.add('visible');
 
-        const url = encodeURI(currentImages[index].src.normalize('NFD'));
+        const url = encodeURI(currentImages[index].src.normalize('NFC'));
 
         // Show image immediately in DOM to avoid black screen
         layerBack.src = url;
@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
             thumb.addEventListener('click', () => {
                 currentIndex = i;
 
-                const url = encodeURI(currentImages[i].src.normalize('NFD'));
+                const url = encodeURI(currentImages[i].src.normalize('NFC'));
 
                 // Pre-load and set on front layer
                 const preImg = new Image();
@@ -596,7 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let toPreload = currentImages.slice(0, 3);
         toPreload.forEach(imgData => {
             const img = new Image();
-            img.src = encodeURI(imgData.src.normalize('NFD'));
+            img.src = encodeURI(imgData.src.normalize('NFC'));
         });
     }
 
