@@ -314,6 +314,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Trigger typing glitch in bottom corner
         typeGlitchText(categoryGlitchText, category === 'all' ? 'the world' : category);
 
+        // Preload first few images of this category
+        preloadImages();
+        
         showImage(0);
     }
 
