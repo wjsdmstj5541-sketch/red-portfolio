@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (direction < 0) { currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length; showImage(currentIndex, -1); }
         };
 
-        img.src = encodeURI(currentImages[index].src.normalize('NFD'));
+        img.src = currentImages[index].src;
     }
 
     function nextImage() {
@@ -544,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeIndex();
                     isTransitioning = false;
                 };
-                preImg.src = encodeURI(currentImages[i].src.normalize('NFD'));
+                preImg.src = currentImages[i].src;
             });
 
             indexGrid.appendChild(thumb);
@@ -585,17 +585,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ========== Preload first images of each category ==========
+    // ========== Preload images ==========
     function preloadImages() {
-        for (const cat in imageDB) {
-            if (imageDB[cat].length > 0) {
-                const img = new Image();
-                img.src = imageDB[cat][0].src;
-            }
-        }
+        // Preload first few images
+        let toPreload = currentImages.slice(0, 3);
+        toPreload.forEach(imgData => {
+            const img = new Image();
+            img.src = imgData.src;
+        });
     }
-
-    // Delay preload to not interfere with intro
-    setTimeout(preloadImages, 3000);
 
 });

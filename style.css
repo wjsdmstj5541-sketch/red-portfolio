@@ -71,7 +71,8 @@ body {
     mix-blend-mode: difference;
     transition: width 0.4s var(--ease-organic),
                 height 0.4s var(--ease-organic),
-                background-color 0.3s ease;
+                background-color 0.3s ease,
+                opacity 0.3s ease;
     transform: translate3d(-50%, -50%, 0);
     will-change: transform, width, height;
     display: flex;
@@ -81,6 +82,11 @@ body {
     font-size: 13px;
     font-weight: 500;
     color: var(--black);
+    opacity: 0;
+}
+
+.custom-cursor.visible {
+    opacity: 1;
 }
 
 .custom-cursor.hovering {
@@ -101,6 +107,11 @@ body {
     mix-blend-mode: difference;
     transform: translate3d(-50%, -50%, 0);
     will-change: transform;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cursor-trail.visible {
     opacity: 0.5;
 }
 
@@ -427,7 +438,7 @@ body {
     max-height: calc(100% - 160px);
     object-fit: contain;
     opacity: 0;
-    transition: opacity 1s ease, transform 1.5s var(--ease-organic), filter 1s ease;
+    transition: opacity 0.6s ease, transform 1s var(--ease-organic), filter 0.6s ease;
     user-select: none;
     -webkit-user-drag: none;
 }
