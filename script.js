@@ -207,131 +207,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ========== Cinematic Audio Design ==========
-    function playCinematicEnterSound() {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        
-        const ctx = new AudioContext();
-        
-        // 1. Deep Sub-Bass Rumble
-        const osc = ctx.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(45, ctx.currentTime); // Start low
-        osc.frequency.exponentialRampToValueAtTime(20, ctx.currentTime + 3.5); // Drop even lower
-        
-        const gainNode = ctx.createGain();
-        gainNode.gain.setValueAtTime(0, ctx.currentTime);
-        gainNode.gain.linearRampToValueAtTime(0.7, ctx.currentTime + 0.8); // Swell up
-        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 4); // Slow fade out
-        
-        // 2. Analog Air / Film Texture
-        const bufferSize = ctx.sampleRate * 4;
-        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = (Math.random() * 2 - 1) * 0.5;
-        }
-        const noise = ctx.createBufferSource();
-        noise.buffer = buffer;
-        
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(80, ctx.currentTime); // Very muffled
-        filter.frequency.linearRampToValueAtTime(300, ctx.currentTime + 1); // Open up slightly
-        filter.frequency.linearRampToValueAtTime(40, ctx.currentTime + 3.5); // Close down
-        
-        const noiseGain = ctx.createGain();
-        noiseGain.gain.setValueAtTime(0, ctx.currentTime);
-        noiseGain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.5);
-        noiseGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 3.5);
-        
-        // Connect and play
-        osc.connect(gainNode);
-        gainNode.connect(ctx.destination);
-        
-        noise.connect(filter);
-        filter.connect(noiseGain);
-        noiseGain.connect(ctx.destination);
-        
-        osc.start();
-        noise.start();
-        osc.stop(ctx.currentTime + 4);
-        noise.stop(ctx.currentTime + 4);
-    }
-
-    // ========== PHASE 1: The Dot Click ==========
-    function enterWorld() {
+    // ========== Initialize World Immediately ==========
+    function initWorld() {
         if (hasEntered) return;
         hasEntered = true;
 
-        playCinematicEnterSound(); // Trigger sound on entry
-        theDot.classList.add('clicked'); // Hide satellites instantly
+        if (intro) {
+            intro.style.display = 'none';
+        }
 
-        const dotCore = theDot.querySelector('.dot-core');
-        const dotRect = dotCore.getBoundingClientRect();
-        const navTarget = getNavDotTarget();
+        // Activate world immediately
+        world.classList.add('active');
+        world.style.opacity = '1';
+        world.style.transition = 'none';
 
-        // Clone the dot for animation
-        dotCore.classList.add('launching');
-        dotCore.style.left = dotRect.left + 'px';
-        dotCore.style.top = dotRect.top + 'px';
-        dotCore.style.width = dotRect.width + 'px';
-        dotCore.style.height = dotRect.height + 'px';
+        // Show nav immediately
+        nav.classList.add('visible');
+        nav.style.opacity = '1';
+        nav.style.transform = 'translateY(0)';
+        nav.style.transition = 'none';
 
-        // Hide whisper
-        const whisper = document.querySelector('.intro-whisper');
-        whisper.style.opacity = '0';
-        whisper.style.transition = 'opacity 0.3s ease';
+        // Load first category
+        loadCategory('all');
 
-        // Animate dot to nav position
-        requestAnimationFrame(() => {
-            dotCore.style.transition = 'all 1.2s cubic-bezier(0.23, 1, 0.32, 1)';
-            dotCore.style.left = navTarget.x + 'px';
-            dotCore.style.top = navTarget.y + 'px';
-            dotCore.style.width = '10px';
-            dotCore.style.height = '10px';
-            dotCore.style.boxShadow = '0 0 15px rgba(196, 59, 59, 0.3)';
-        });
-
-        // Fade intro bg
-        setTimeout(() => {
-            intro.classList.add('exiting');
-            intro.style.background = 'transparent';
-            intro.style.transition = 'background 0.8s ease';
-        }, 400);
-
-        // Activate world
-        setTimeout(() => {
-            world.classList.add('active');
-        }, 600);
-
-        // Show nav
-        setTimeout(() => {
-            nav.classList.add('visible');
-        }, 900);
-
-        // Hide intro, show gallery
-        setTimeout(() => {
-            intro.classList.add('gone');
-            loadCategory('all');
-            galleryCounter.classList.add('visible');
-        }, 1400);
+        // Show counter immediately
+        galleryCounter.classList.add('visible');
+        galleryCounter.style.opacity = '1';
+        galleryCounter.style.transition = 'none';
     }
 
-    function getNavDotTarget() {
-        // Approximate nav dot position
-        const isMobile = window.innerWidth <= 768;
-        return {
-            x: isMobile ? 15 : 40,
-            y: isMobile ? 20 : 28,
-        };
-    }
-
-    theDot.addEventListener('click', enterWorld);
-    theDot.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') enterWorld();
-    });
+    // Call init immediately
+    initWorld();
 
     // ========== Image Loading ==========
     function getAllImages() {
