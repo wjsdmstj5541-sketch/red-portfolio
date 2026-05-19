@@ -633,14 +633,12 @@ body {
     opacity: 0.6;
 }
 
-/* --- Contact Overlay --- */
-.contact-overlay {
+/* --- About Overlay --- */
+.about-overlay {
     position: fixed;
     inset: 0;
-    z-index: 150;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    z-index: 80; /* Behind nav (200), above gallery (1) */
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -649,24 +647,29 @@ body {
     transition: opacity 0.8s ease;
 }
 
-.contact-overlay.active {
+.about-overlay.active {
     opacity: 1;
     pointer-events: all;
 }
 
-.contact-content {
+.about-content {
     text-align: center;
     transform: translateY(20px);
     opacity: 0;
     transition: transform 0.8s var(--ease-organic) 0.2s, opacity 0.8s ease 0.2s;
+    background: rgba(10, 10, 10, 0.7); /* subtle backing for text readability */
+    padding: 30px 40px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
-.contact-overlay.active .contact-content {
+.about-overlay.active .about-content {
     transform: translateY(0);
     opacity: 1;
 }
 
-.contact-content h3 {
+.about-content h3 {
     font-size: 1.2rem;
     font-weight: 400;
     letter-spacing: 0.4em;
@@ -674,7 +677,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.contact-content p {
+.about-content p {
     font-size: 0.7rem;
     color: var(--white-dim);
     letter-spacing: 0.1em;

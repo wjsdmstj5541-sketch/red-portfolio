@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== Image Database ==========
     const imageDB = {
+        'about': [
+            { src: 'images/전은서.jpg' }
+        ],
         'black mood': [
             { src: 'images/black mood/0.jpg' },
             { src: 'images/black mood/1.jpg' },
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const indexOverlay = document.getElementById('indexOverlay');
     const indexGrid = document.getElementById('indexGrid');
     const indexToggle = document.getElementById('indexToggle');
-    const contactOverlay = document.getElementById('contactOverlay');
+    const aboutOverlay = document.getElementById('aboutOverlay');
     const categoryGlitchText = document.getElementById('categoryGlitchText');
     const loadingText = document.getElementById('loadingText');
     const teleX = document.getElementById('teleX');
@@ -107,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('chip3')
     ];
     let isIndexOpen = false;
-    let isContactOpen = false;
 
     // Dual layer refs
     let layerFront = currentImage;  // currently showing
@@ -124,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cursor.classList.add('visible');
         cursorTrail.classList.add('visible');
         
-        if (hasEntered && !isIndexOpen && !isContactOpen) {
+        if (hasEntered && !isIndexOpen) {
             teleX.textContent = `X:${String(mouseX).padStart(4, '0')}`;
             teleY.textContent = `Y:${String(mouseY).padStart(4, '0')}`;
             
@@ -228,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nav.style.transition = 'none';
 
         // Load first category
-        loadCategory('all');
+        loadCategory('about');
 
         // Show counter immediately
         galleryCounter.classList.add('visible');
@@ -258,23 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return a;
     }
 
-    // ========== Nav Dot: Contact Toggle ==========
+    // ========== Nav Dot: About Toggle ==========
     navDot.addEventListener('click', () => {
-        isContactOpen = !isContactOpen;
-        if (isContactOpen) {
-            contactOverlay.classList.add('active');
-            if (isIndexOpen) closeIndex();
-        } else {
-            contactOverlay.classList.remove('active');
-        }
-    });
-
-    // Close contact overlay on click outside
-    contactOverlay.addEventListener('click', (e) => {
-        if (e.target === contactOverlay) {
-            isContactOpen = false;
-            contactOverlay.classList.remove('active');
-        }
+        // Just load the about category
+        document.querySelector('.nav-cat[data-category="about"]').click();
     });
 
     // ========== Glitch Typing Effect ==========
@@ -308,6 +297,17 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             currentImages = shuffleArray([...(imageDB[category] || [])]);
         }
+        
+        if (category === 'about') {
+            // Show the about text overlay
+            aboutOverlay.classList.add('active');
+            // Make sure counter is hidden or shows 01/01
+            galleryCounter.style.opacity = '0';
+        } else {
+            aboutOverlay.classList.remove('active');
+            galleryCounter.style.opacity = '1';
+        }
+
         currentIndex = 0;
         updateCounter();
 
