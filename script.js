@@ -303,12 +303,14 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryCounter.style.opacity = '0';
             
             // Fade out any existing images
-            layerFront.classList.add('fading-out');
-            layerBack.classList.add('fading-out');
+            document.getElementById('galleryContainer').style.opacity = '0';
+            document.getElementById('galleryContainer').style.pointerEvents = 'none';
             
         } else {
             aboutOverlay.classList.remove('active');
             galleryCounter.style.opacity = '1';
+            document.getElementById('galleryContainer').style.opacity = '1';
+            document.getElementById('galleryContainer').style.pointerEvents = 'all';
         }
 
         currentIndex = 0;
