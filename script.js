@@ -301,6 +301,8 @@ document.addEventListener('DOMContentLoaded', () => {
             aboutOverlay.classList.add('active');
             // Make sure counter is hidden or shows 01/01
             galleryCounter.style.opacity = '0';
+            indexToggle.style.opacity = '0';
+            indexToggle.style.pointerEvents = 'none';
             
             // Fade out any existing images
             document.getElementById('galleryContainer').style.opacity = '0';
@@ -309,6 +311,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             aboutOverlay.classList.remove('active');
             galleryCounter.style.opacity = '1';
+            indexToggle.style.opacity = '1';
+            indexToggle.style.pointerEvents = 'all';
             document.getElementById('galleryContainer').style.opacity = '1';
             document.getElementById('galleryContainer').style.pointerEvents = 'all';
         }
