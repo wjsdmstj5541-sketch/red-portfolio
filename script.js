@@ -7,9 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== Image Database ==========
     const imageDB = {
-        'about': [
-            { src: 'images/전은서.jpg' }
-        ],
+        'about': [],
         'black mood': [
             { src: 'images/black mood/0.jpg' },
             { src: 'images/black mood/1.jpg' },
@@ -303,6 +301,11 @@ document.addEventListener('DOMContentLoaded', () => {
             aboutOverlay.classList.add('active');
             // Make sure counter is hidden or shows 01/01
             galleryCounter.style.opacity = '0';
+            
+            // Fade out any existing images
+            layerFront.classList.add('fading-out');
+            layerBack.classList.add('fading-out');
+            
         } else {
             aboutOverlay.classList.remove('active');
             galleryCounter.style.opacity = '1';

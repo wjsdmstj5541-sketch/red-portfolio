@@ -657,11 +657,7 @@ body {
     transform: translateY(20px);
     opacity: 0;
     transition: transform 0.8s var(--ease-organic) 0.2s, opacity 0.8s ease 0.2s;
-    background: rgba(10, 10, 10, 0.7); /* subtle backing for text readability */
     padding: 30px 40px;
-    border-radius: 8px;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
 }
 
 .about-overlay.active .about-content {
@@ -669,40 +665,16 @@ body {
     opacity: 1;
 }
 
-.about-content h3 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    letter-spacing: 0.4em;
+.about-quote {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
     color: var(--white);
-    margin-bottom: 0.5rem;
+    line-height: 2;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-.about-content p {
-    font-size: 0.7rem;
-    color: var(--white-dim);
-    letter-spacing: 0.1em;
-    margin-bottom: 3rem;
-}
 
-.contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.contact-link {
-    color: var(--white-dim);
-    text-decoration: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    transition: color 0.4s ease, text-shadow 0.4s ease;
-    cursor: none; /* Let custom cursor handle it */
-}
-
-.contact-link:hover {
-    color: var(--white);
-    text-shadow: 0 0 10px rgba(232, 228, 224, 0.3);
-}
 
 /* --- Glitch Category Text --- */
 .category-glitch-text {
