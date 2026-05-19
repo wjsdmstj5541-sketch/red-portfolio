@@ -350,35 +350,35 @@ document.addEventListener('DOMContentLoaded', () => {
         
         loadingText.classList.add('visible');
 
+        const url = encodeURI(currentImages[index].src.normalize('NFD'));
+
+        // Show image immediately in DOM to avoid black screen
+        layerBack.src = url;
+        layerBack.style.filter = 'none';
+        layerBack.style.transform = 'translate(-50%, -50%)';
+        layerBack.classList.remove('fading-out');
+
+        requestAnimationFrame(() => {
+            layerBack.classList.add('active');
+            layerFront.classList.remove('active');
+            layerFront.classList.add('fading-out');
+
+            const temp = layerFront;
+            layerFront = layerBack;
+            layerBack = temp;
+
+            setTimeout(() => {
+                layerBack.classList.remove('fading-out');
+            }, 600);
+        });
+
+        updateCounter();
+
         const img = new Image();
         img.onload = () => {
             loadingText.classList.remove('visible');
             extractAndSetColors(img);
-            // Prepare the back layer with new image
-            layerBack.src = img.src;
-            layerBack.style.filter = 'none';
-            layerBack.style.transform = 'translate(-50%, -50%)';
-            layerBack.classList.remove('fading-out');
-
-            // Crossfade: back layer comes forward
-            requestAnimationFrame(() => {
-                layerBack.classList.add('active');
-                layerFront.classList.remove('active');
-                layerFront.classList.add('fading-out');
-
-                // Swap roles
-                const temp = layerFront;
-                layerFront = layerBack;
-                layerBack = temp;
-
-                // Clean up after transition
-                setTimeout(() => {
-                    layerBack.classList.remove('fading-out');
-                    isTransitioning = false;
-                }, 1100);
-            });
-
-            updateCounter();
+            isTransitioning = false;
         };
 
         img.onerror = () => {
@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (direction < 0) { currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length; showImage(currentIndex, -1); }
         };
 
-        img.src = currentImages[index].src;
+        img.src = url;
     }
 
     function nextImage() {
@@ -529,6 +529,8 @@ document.addEventListener('DOMContentLoaded', () => {
             thumb.addEventListener('click', () => {
                 currentIndex = i;
 
+                const url = encodeURI(currentImages[i].src.normalize('NFD'));
+
                 // Pre-load and set on front layer
                 const preImg = new Image();
                 preImg.onload = () => {
@@ -547,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeIndex();
                     isTransitioning = false;
                 };
-                preImg.src = currentImages[i].src;
+                preImg.src = url;
             });
 
             indexGrid.appendChild(thumb);
@@ -594,7 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let toPreload = currentImages.slice(0, 3);
         toPreload.forEach(imgData => {
             const img = new Image();
-            img.src = imgData.src;
+            img.src = encodeURI(imgData.src.normalize('NFD'));
         });
     }
 
